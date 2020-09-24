@@ -1,0 +1,5 @@
+en:
+  welcome: "Welcome on %{author_name}'s blog !"
+  home: "Home"
+  about: "About"
+  contact: "Contact"

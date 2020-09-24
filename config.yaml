@@ -1,0 +1,30 @@
+#                  GSS
+# ========================================
+#
+# This is the GSS config file.
+# GSS needs the following to work properly
+
+title: 'gss-test'
+lang: 'en'
+charset: 'utf-8'
+theme: 'system' # Default theme is system. Choices are 'system', 'light' and 'dark' 
+
+header_image: './assets/header.png'
+
+short_description: 'this is a gss test'
+long_description: |
+  'this test is all about gss, which is a static website generator.'
+
+author:
+  name: 'John Doe'
+  mail: 'johndoe@mail.com'
+  phone: '0611223344'
+  profile_picture: './assets/johndoe_face.png'
+
+extras: # Documentation on https://github.com/trentm/python-markdown2/wiki/Extras
+  code_friendly: true
+  fenced_code_blocks: true
+  cuddled_lists: false
+
+stylesheet: './assets/style.css'
+javascript: '/assets/script.js'
