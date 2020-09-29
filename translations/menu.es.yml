@@ -1,0 +1,5 @@
+es:
+  welcome: "Bienvenido en el blog de %{author_name} !"
+  home: "Inicio"
+  about: "Acerca de"
+  contact: "Contacto"

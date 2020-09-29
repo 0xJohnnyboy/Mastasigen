@@ -1,0 +1,5 @@
+it:
+  welcome: "Benvenuto nel blog di %{author_name} !"
+  home: "Pagina iniziale"
+  about: "Informazioni"
+  contact: "Contatti"

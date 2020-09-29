@@ -1,77 +1,109 @@
 import os
-import markdown2
 import argparse
 import codecs
+import shortuuid
+import time
+import re
 
 from poyo import parse_string
 from meta import Meta
 from author import Author
-from extra import Extra
-from index_generator import Index
+from page import Page
 
 # parsing arguments to be used through the program
-parser = argparse.ArgumentParser(prog='GSS', usage='static website generation', description='GSS is a static site generator. It renders html static files from markdown')
+parser = argparse.ArgumentParser(
+    prog='GSS',
+    usage='static website generation',
+    description='GSS is a static site generator. It renders html static files from markdown'
+)
 parser.add_argument("-v", "--verbose", action='store_true', help="prints output")
 parser.add_argument("-i", "--interaction", action='store_false', help="skip user interaction")
 parser.add_argument("-u", "--update", help="update existing project with new articles")
 args = parser.parse_args()
 
-verboseprint = print if args.verbose else lambda *a, **k: None
-verboseprint('Getting current working directory...')
+verbose_print = print if args.verbose else lambda *a, **k: None
+verbose_print('Starting GSS', 'Getting current working directory...')
 
 cwd = os.getcwd()
 
-verboseprint(cwd)
-verboseprint('Reading config file...')
+verbose_print(cwd)
+verbose_print('Reading config file...')
 
 with codecs.open('config.yaml', encoding='utf-8') as yml_file:
     yml_string = yml_file.read()
 
 config = parse_string(yml_string)
 
-extras = Extra(
-        config['extras']['code_friendly'],
-        config['extras']['fenced_code_blocks'],
-        config['extras']['cuddled_lists'],
-        )
+extras = config['extras']
 
 author = Author(
-        config['author']['name'], 
-        config['author']['mail'],
-        config['author']['phone'], 
-        config['author']['profile_picture']
-        )
+    config['author']['name'],
+    config['author']['mail'],
+    config['author']['phone'],
+    config['author']['github'],
+    config['author']['available_from'],
+    config['author']['available_until'],
+    config['author']['profile_picture']
+)
 
 meta = Meta(
-        author, 
-        config['title'], 
-        config['short_description'], 
-        config['long_description'],
-        config['lang'], 
-        config['charset'], 
-        config['theme'],
-        config['stylesheet'],
-        config['javascript']
-        )
+    author,
+    config['title'],
+    config['short_description'],
+    config['long_description'],
+    config['lang'],
+    config['charset'],
+    config['theme'],
+    config['stylesheet'],
+    config['javascript']
+)
+
+verbose_print(meta.get_meta(), extras)
+verbose_print(f'Hi, GSS is about to create {meta.title}...')
+
+md_files_links = []
 
 
-verboseprint(meta.get_meta(), extras.get_extras())
-verboseprint(f"Hi, GSS is about to create {meta.title}...")
+def save(content, file_name, md=False):
+    if md == True and content:
+        html_file_name = f"{time.strftime('%Y%m%d-%H%M%S')}_{shortuuid.uuid()}_{file_name}.html"
+        title = re.search("(<h1>.*<\/h1>)([\w\W]{0,140})", content).group(1)
+        excerpt = re.search("(<h1>.*<\/h1>)([\w\W]{0,140})", content).group(2)
+        md_files_links.append({
+            'title': title,
+            'excerpt': excerpt,
+            'link': f'./{html_file_name}'
+        })
+    else:
+        html_file_name = f'{file_name}.html'
 
-index = Index(cwd, meta)
-index_content = index.generate()
-print(index_content)
+    html_file = open(f"{config['html_path']}/{html_file_name}", "w")
+    html_file.write(content)
+    html_file.close()
 
-#def render(md_file):
-#    args.verbose && print(f'Rendering {md_file}')
-#    file_name = md_file[:-3]
-#    f = open(f'{args.md_path}/{md_file}', "r")
-#    rendered_md = markdown2.markdown(f.read())
-#    html_file_name = f'{file_name}.html'
-#    html_file = open(f'{args.html_path}/{html_file_name}',"w")
-#    html_file.write(rendered_md)
-#    args.verbose && print(f'{html_file_name} created !}')
-#    html_file.close()
-#
-#files = os.listdir(args.md_path)
-#files = [render(file) for file in files if file.endswith(".md")]
+    verbose_print(f'{file_name} successfully saved !')
+
+
+def render(md_file):
+    verbose_print(f'Rendering {md_file}')
+    file_name = md_file[:-3]
+    md_file_content = open(f"{config['md_path']}/{md_file}", "r").read()
+    if md_file_content != '':
+        page_content = Page(cwd, meta).render_md(md_file_content, extras)
+        verbose_print(f'Sample: {page_content[:200]}')
+        save(page_content, file_name, True)
+
+
+files = os.listdir(config['md_path'])
+rendering = [render(file) for file in files if file.endswith(".md")]
+
+index = Page(cwd, meta).generate_index(md_files_links)
+about = Page(cwd, meta).generate_about()
+contact = Page(cwd, meta).generate_contact()
+
+for f in [{'name': 'index', 'content': index},
+          {'name': 'about', 'content': about},
+          {'name': 'contact', 'content': contact}]:
+    save(f['content'], f['name'])
+
+verbose_print(index)

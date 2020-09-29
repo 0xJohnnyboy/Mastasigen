@@ -5,7 +5,7 @@
 # GSS needs the following to work properly
 
 title: 'gss-test'
-lang: 'en'
+lang: 'it'
 charset: 'utf-8'
 theme: 'system' # Default theme is system. Choices are 'system', 'light' and 'dark' 
 
@@ -18,13 +18,20 @@ long_description: |
 author:
   name: 'John Doe'
   mail: 'johndoe@mail.com'
-  phone: '0611223344'
+  phone: '+33611223344' # Don't forget international prefix
+  github: 'https://github.com/Sonicfury'
+  available_from: '9 AM'
+  available_until: '7 PM'
   profile_picture: './assets/johndoe_face.png'
 
 extras: # Documentation on https://github.com/trentm/python-markdown2/wiki/Extras
-  code_friendly: true
-  fenced_code_blocks: true
-  cuddled_lists: false
+  - code-friendly
+  - fenced-code_blocks
+  - cuddled-lists
+  - tables
+  - footnotes
 
 stylesheet: './assets/style.css'
 javascript: '/assets/script.js'
+md_path: './md_files'
+html_path: './website'
