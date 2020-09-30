@@ -1,0 +1,4 @@
+en:
+  intro: "Feel free to contact me"
+  phone: "You can call me at this number between %{opening_hour} and %{closing_hour}"
+  mail: "Send me and e-mail here"

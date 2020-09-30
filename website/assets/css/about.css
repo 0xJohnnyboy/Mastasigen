@@ -1,0 +1,90 @@
+/*$backgroundPlain: #f4f4f4;*/
+/*$contrastBackground: #cbd5e0;*/
+/*$contrastBackground2: #718096;*/
+/*$tableContrastLineBackground: rgba(203, 213, 224, 0.3);*/
+/*$preBackground: #242424;*/
+/*$blockquoteBg: rgba(0, 0, 0, 0.035);*/
+/*$spoilerHiddenTextColor: #7e7e7e;*/
+/*$tileGradient: linear-gradient(0deg, rgba(244, 244, 244, 1) 0%, rgba(244, 244, 244, 1) 22%, rgba(250, 250, 250, 0) 74%);*/
+/*$textColor: #121212;*/
+/*$titleColor: #141414;*/
+/*$preColor: #EDF2F7;*/
+/*$linkColor: #2c67cd;*/
+/*$linkAltColor: #7027b8;*/
+/*$headerImgFilter: brightness(130%) contrast(70%) saturate(1.5) opacity(0.8);*/
+/*$border: 1px solid rgba(0, 0, 0, 0.2);*/
+/*$backgroundPlain: #1a202c;
+  $contrastBackground: #4A5568;
+  $contrastBackground2: #718096;
+  $tableContrastLineBackground: rgba(45, 55, 72, 0.4);
+  $preBackground: #242424;
+  $blockquoteBg: rgba(255, 255, 255, 0.035);
+  $spoilerHiddenTextColor: #7e7e7e;
+  $tileGradient: linear-gradient(0deg, rgb(26, 32, 44) 0%, rgb(26, 32, 44) 22%, rgba(250, 250, 250, 0) 74%);
+
+  $textColor: #edf2f7;
+  $titleColor: #F7EBEC;
+  $preColor: #edf2f7;
+  $linkColor: #cda62c;
+  $linkAltColor: #b06c24;
+  $headerImgFilter: brightness(75%) contrast(80%) saturate(1.8) opacity(0.6);
+
+  $border: 1px solid rgba(255, 255, 255, 0.2);*/
+:root {
+  --borderRadius: 4px;
+  --boxShadow: -1px 3px 11px -3px rgba(0, 0, 0, 0.10);
+  --blueShadow: -8px 8px 0 rgba(5, 113, 255, 0.3);
+  --purpleShadow: 8px -8px 0 rgb(159, 5, 255, 0.3);
+  --redShadow: -8px -8px 0 rgba(255, 67, 0, 0.3);
+  --yellowShadow: 8px 8px 0 rgba(238, 255, 0, 0.3);
+  --preBackground: #161616;
+}
+
+:root[theme=light] {
+  --backgroundPlain: #f4f4f4;
+  --contrastBackground: #cbd5e0;
+  --contrastBackground2: #718096;
+  --tableContrastLineBackground: rgba(113, 128, 150, 0.15);
+  --blockquoteBg: rgba(0, 0, 0, 0.035);
+  --spoilerHiddenTextColor: #7e7e7e;
+  --tileGradient: linear-gradient(0deg, rgba(244, 244, 244, 1) 0%, rgba(244, 244, 244, 1) 22%, rgba(250, 250, 250, 0) 74%);
+  --textColor: #121212;
+  --titleColor: #141414;
+  --preColor: #EDF2F7;
+  --linkColor: #2c67cd;
+  --linkAltColor: #7027b8;
+  --headerImgFilter: brightness(130%) contrast(70%) saturate(1.5) opacity(0.8);
+  --border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+:root[theme=dark] {
+  --backgroundPlain: /*#1a202c*/
+          #2d3748;
+  --contrastBackground: /*#4A5568*/
+          #1a202c;
+  --contrastBackground2: #718096;
+  --tableContrastLineBackground: rgba(45, 55, 72, 0.4);
+  --blockquoteBg: rgba(255, 255, 255, 0.035);
+  --spoilerHiddenTextColor: #7e7e7e;
+  --tileGradient: /*linear-gradient(0deg, rgb(26, 32, 44) 0%, rgb(26, 32, 44) 22%, rgba(250, 250, 250, 0) 74%)*/
+          linear-gradient(0deg, rgb(45, 55, 72) 0%, rgb(45, 55, 72) 22%, rgba(250, 250, 250, 0) 74%);
+  --textColor: #edf2f7;
+  --titleColor: #F7EBEC;
+  --preColor: #edf2f7;
+  --linkColor: #cda62c;
+  --linkAltColor: #b06c24;
+  --headerImgFilter: brightness(75%) contrast(80%) saturate(1.8) opacity(0.6);
+  --border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.about {
+  padding: 1em;
+}
+
+@media screen and (min-width: 768px) {
+  .about {
+    margin: 0 auto;
+  }
+}
+
+/*# sourceMappingURL=about.css.map */

@@ -54,8 +54,9 @@ meta = Meta(
     config['lang'],
     config['charset'],
     config['theme'],
+    config['header_image'],
     config['stylesheet'],
-    config['javascript']
+    config['javascript'],
 )
 
 verbose_print(meta.get_meta(), extras)
@@ -65,15 +66,21 @@ md_files_links = []
 
 
 def save(content, file_name, md=False):
-    if md == True and content:
+    if md is True and content:
+        verbose_print(f'creating file {file_name}')
+        verbose_print(content)
+
         html_file_name = f"{time.strftime('%Y%m%d-%H%M%S')}_{shortuuid.uuid()}_{file_name}.html"
-        title = re.search("(<h1>.*<\/h1>)([\w\W]{0,140})", content).group(1)
-        excerpt = re.search("(<h1>.*<\/h1>)([\w\W]{0,140})", content).group(2)
+        title = re.search("(<h1>.*<\/h1>)(([\w\W]{0,350})</article>|([\w\W]{0,350}))", content).group(1).replace('</h1>',
+                                                                                               f'<span class="excerpt__item__date">{time.strftime("%Y %b %d - %H:%M")}</span></h1>')
+        excerpt = re.search("(<h1>.*<\/h1>)(([\w\W]{0,350})</article>|([\w\W]{0,350}))", content).group(2)[:-10]
         md_files_links.append({
             'title': title,
             'excerpt': excerpt,
             'link': f'./{html_file_name}'
         })
+
+        verbose_print(md_files_links)
     else:
         html_file_name = f'{file_name}.html'
 
@@ -90,7 +97,7 @@ def render(md_file):
     md_file_content = open(f"{config['md_path']}/{md_file}", "r").read()
     if md_file_content != '':
         page_content = Page(cwd, meta).render_md(md_file_content, extras)
-        verbose_print(f'Sample: {page_content[:200]}')
+        # verbose_print(f'Sample: {page_content[:200]}')
         save(page_content, file_name, True)
 
 
@@ -105,5 +112,3 @@ for f in [{'name': 'index', 'content': index},
           {'name': 'about', 'content': about},
           {'name': 'contact', 'content': contact}]:
     save(f['content'], f['name'])
-
-verbose_print(index)

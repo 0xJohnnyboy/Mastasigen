@@ -1,0 +1,4 @@
+es:
+  intro: "No dudes en contactarme"
+  phone: "Puedes llamarme a este número entre las %{opening_hour} y las %{closing_hour}"
+  mail: "Envíame un correo electrónico aquí"

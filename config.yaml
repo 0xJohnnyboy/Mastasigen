@@ -4,16 +4,16 @@
 # This is the GSS config file.
 # GSS needs the following to work properly
 
-title: 'gss-test'
-lang: 'it'
+title: 'Mastasigen'
+lang: 'fr'
 charset: 'utf-8'
-theme: 'system' # Default theme is system. Choices are 'system', 'light' and 'dark' 
+theme: 'system' # Default theme is system. Choices are 'system', 'light' and 'dark'
 
-header_image: './assets/header.png'
+header_image: './assets/img/kian-lem.jpg'
 
-short_description: 'this is a gss test'
+short_description: this is a mastasigen test
 long_description: |
-  'this test is all about gss, which is a static website generator.'
+  this test is all about gss, which is a static website generator.
 
 author:
   name: 'John Doe'
@@ -22,16 +22,21 @@ author:
   github: 'https://github.com/Sonicfury'
   available_from: '9 AM'
   available_until: '7 PM'
-  profile_picture: './assets/johndoe_face.png'
+  profile_picture: './assets/img/vicky-hladynets.jpg'
 
 extras: # Documentation on https://github.com/trentm/python-markdown2/wiki/Extras
   - code-friendly
-  - fenced-code_blocks
   - cuddled-lists
+  - fenced-code-blocks
   - tables
   - footnotes
+  - smarty-pants
+  - numbering
+  - tables
+  - strike
+  - spoiler
 
-stylesheet: './assets/style.css'
-javascript: '/assets/script.js'
+stylesheet: './assets/css/style.css'
+javascript: './assets/js/script.js'
 md_path: './md_files'
 html_path: './website'

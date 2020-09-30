@@ -17,4 +17,7 @@ class GssHtmlParser(HTMLParser):
     def get_missing_closing_tag(self):
         missing_tag = [tag for tag in self.start_tag_list if tag not in self.end_tag_list]
 
+        if not missing_tag:
+            return ''
+
         return f'</{missing_tag[0]}>'
