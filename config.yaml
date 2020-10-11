@@ -1,20 +1,25 @@
-#                  GSS
+#                  Mastastigen!
 # ========================================
 #
-# This is the GSS config file.
-# GSS needs the following to work properly
+# This is the Mastastigen! config file.
+# Mastastigen! needs the following to work properly
 
-title: 'gss-test'
-lang: 'it'
+title: 'Mastasigen!'
+lang: 'fr'
 charset: 'utf-8'
-theme: 'system' # Default theme is system. Choices are 'system', 'light' and 'dark' 
+theme: 'system' # Default theme is system. Choices are 'system', 'light' and 'dark'
 
-header_image: './assets/header.png'
+header_image: './assets/img/kian-lem.jpg'
 
-short_description: 'this is a gss test'
+short_description: This is Mastastigen!, a Markdown Static Site Generator !
 long_description: |
-  'this test is all about gss, which is a static website generator.'
+  This is Mastastigen!. Mastastigen! lets you generate a static website with just one command from markdown files !
 
+  After you configure the projet in config.yaml, you can launch the script with the following command "python3 mastastigen.py".
+  Just add "--help" or "-h" to get help. You can increase verbosity too with "--verbose" or "-v".
+
+  This script is designed to be running on a server: the goal is to automate it with a cron so it will update your website every time you add a new markdown file.
+  It is designed to generate a blog, where each markdown file becomes an article. In order for it to work properly, I recommend you begin your articles with a #title_1 ! You should understand why quickly !
 author:
   name: 'John Doe'
   mail: 'johndoe@mail.com'
@@ -22,16 +27,23 @@ author:
   github: 'https://github.com/Sonicfury'
   available_from: '9 AM'
   available_until: '7 PM'
-  profile_picture: './assets/johndoe_face.png'
+  profile_picture: './assets/img/vicky-hladynets.jpg'
 
 extras: # Documentation on https://github.com/trentm/python-markdown2/wiki/Extras
   - code-friendly
-  - fenced-code_blocks
   - cuddled-lists
+  - fenced-code-blocks
   - tables
   - footnotes
+  - smarty-pants
+  - numbering
+  - tables
+  - strike
+  - spoiler
 
-stylesheet: './assets/style.css'
-javascript: '/assets/script.js'
 md_path: './md_files'
-html_path: './website'
+output: './www'
+
+# Don't modify those unless you know what you're doing !
+stylesheet: './assets/css/style.css'
+javascript: './assets/js/script.js'

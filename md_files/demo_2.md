@@ -11,6 +11,8 @@ You will like those projects!
 ---
 
 # h1 Heading 8-)
+
+Lorem *ipsum* dolor sit amet,consectetur adipiscing elit. **Donec egestas ut quam id sagittis**. In eu imperdiet enim. Morbi vestibulum velit vel hendrerit pellentesque. Duis mollis diam libero, non scelerisque dolor porttitor eget. Vestibulum mauris quam, venenatis quis est vel, ultrices auctor ante. Maecenas porta turpis laoreet metus dapibus fermentum.[Nunc nec pretium nisi](http://google.com)Ut tempoar dui nec lorem dictum interdum sed ut orci.
 ## h2 Heading
 ### h3 Heading
 ![Minion](https://octodex.github.com/images/minion.png)
@@ -110,13 +112,32 @@ Sample text here...
 
 Syntax highlighting
 
-``` js
+JS
+
+```js
 var foo = function (bar) {
   return bar++;
 };
 
 console.log(foo(5));
 ```
+
+Python 
+>! spoiler alert, this doesn't work properly
+
+```python
+class Page:
+
+    def __init__(self, cwd, meta: Meta):
+        self.cwd = cwd
+        self.meta = meta
+
+    def generate(self):
+        i18n.load_path.append('./translations')
+        i18n.set('locale', self.meta.lang)
+        i18n.set('fallback', 'en')
+```
+
 
 ## Tables
 
@@ -199,7 +220,7 @@ Inline footnote^[Text of inline footnote] definition.
 
 Duplicated footnote reference[^second].
 
-[^first]: Footnote **can have markup**
+[^first]: Footnote  **can have markup**
 
     and multiple paragraphs.
 
@@ -241,6 +262,6 @@ It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
 
 ### [Custom containers](https://github.com/markdown-it/markdown-it-container)
 
-::: warning
+::: warning 
 *here be dragons*
 :::
