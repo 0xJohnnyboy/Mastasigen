@@ -1,0 +1,7 @@
+###### Requirements: pip3 install -r requirements.txt ######`
+pyyaml
+markdown2
+yattag
+python-i18n
+shortuuid
+emoji

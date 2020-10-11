@@ -1,7 +1,7 @@
 from html.parser import HTMLParser
 
 
-class GssHtmlParser(HTMLParser):
+class MastaParse(HTMLParser):
 
     def __init__(self):
         super().__init__()

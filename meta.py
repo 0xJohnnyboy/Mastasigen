@@ -1,3 +1,4 @@
+import os
 from author import Author
 
 
@@ -20,3 +21,4 @@ class Meta:
         return [self.author.get_author(), self.title, self.short_description,
                 self.long_description, self.lang, self.charset, self.theme, self.header_image,
                 self.stylesheet, self.javascript]
+

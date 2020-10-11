@@ -6,7 +6,7 @@ import re
 import math
 
 from yattag import Doc, indent
-from gss_html_parser import GssHtmlParser
+from masta_html_parser import MastaParse
 from meta import Meta
 
 
@@ -14,7 +14,7 @@ def generate_link(md_file_link: {}):
     doc, tag, text = Doc().tagtext()
 
     excerpt = md_file_link['excerpt']
-    parser = GssHtmlParser()
+    parser = MastaParse()
     parser.feed(excerpt)
     missing_tag = parser.get_missing_closing_tag()
 

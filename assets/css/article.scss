@@ -1,0 +1,158 @@
+@import "variables";
+
+article {
+  grid-area: content;
+  margin-bottom: 10vh;
+  padding: 1em;
+  overflow: auto;
+  background: var(--contrastBackground);
+
+  p {
+    width: 100%;
+  }
+
+  .article__date {
+    color: var(--backgroundPlain);
+    font-size: 1.1em;
+    background: var(--contrastBackground2);
+    padding: 0.3em;
+    border-radius: var(--borderRadius);
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.85em;
+  }
+
+  h3 {
+    font-size: 1.65em;
+  }
+
+  h4 {
+    font-size: 1.45em;
+  }
+
+  h5 {
+    font-size: 1.35em;
+  }
+
+  h6 {
+    font-size: 1.25em;
+  }
+
+  a {
+    text-decoration: underline;
+    color: var(--linkColor);
+
+    &:visited {
+      color: var(--linkAltColor);
+    }
+
+    &:hover {
+      filter: brightness(140%);
+      transition-duration: 0.3s;
+    }
+  }
+
+  .codehilite {
+    border-radius: var(--borderRadius);
+  }
+
+  pre {
+    display: flex;
+    background: var(--preBackground);
+    padding: 2em;
+    border-radius: var(--borderRadius);
+    color: var(--preColor);
+  }
+
+  blockquote {
+    display: flex;
+    flex-wrap: wrap;
+    border: var(--border);
+    padding: 1em;
+    border-radius: var(--borderRadius);
+    background: var(--blockquoteBg);
+    position: relative;
+    margin-top: calc(1em + 30px);
+
+    p {
+      transition-duration: 0.3s;
+    }
+
+
+    &.spoiler {
+      cursor: pointer;
+
+      &::after {
+        content: "\26A0   Spoiler";
+        position: absolute;
+        top: -30px;
+        left: 0;
+        padding-left: 1em;
+        color: var(--contrastBackground2);
+        font-family: "Roboto Slab", serif;
+        text-decoration: underline;
+        height: 100%;
+        width: 100%;
+        transition-duration: 0.3s;
+      }
+
+      p {
+        filter: blur(5px);
+        color: var(--spoilerHiddenTextColor);
+      }
+    }
+
+  }
+
+  table {
+    margin: 0 auto;
+    border: var(--border);
+    min-width: 70%;
+    max-width: 88%;
+    border-radius: var(--borderRadius);
+    padding: 0.15em;
+
+    thead {
+      background: var(--contrastBackground2);
+      color: var(--backgroundPlain);
+
+      tr th {
+        padding: 0.4em;
+      }
+    }
+
+    tbody {
+
+      tr:nth-child(2n) {
+        background: var(--tableContrastLineBackground);
+      }
+
+      tr td {
+        padding: 0.4em;
+      }
+    }
+  }
+
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 60%;
+    max-height: 60vh;
+    border-radius: 5px;
+  }
+
+}
+
+@media screen and (min-width: 768px) {
+  article {
+    width: 70%;
+    margin: 0 auto 10vh auto;
+    border: var(--border);
+    border-radius: var(--borderRadius);
+  }
+}
