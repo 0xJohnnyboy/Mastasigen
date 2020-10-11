@@ -92,8 +92,8 @@ class Page:
                         doc.asis('<i class="menu__item__theme-toggle fas"></i>')
 
         with tag('header'):
-            doc.stag('img', src=f"{self.meta.author.profile_picture}", klass="profile-pic")
-            doc.stag('img', src=f"{self.meta.header_image}", klass="header-image")
+            self.meta.author.profile_picture is not '' and doc.stag('img', src=f"{self.meta.author.profile_picture}", klass="profile-pic")
+            self.meta.header_image is not '' and doc.stag('img', src=f"{self.meta.header_image}", klass="header-image")
 
             with tag('h1', klass='welcome'):
                 text(i18n.t(
@@ -192,6 +192,19 @@ class Page:
                 doc.asis(generate_link(md_file_link))
 
         return self.close_html(f + indent(doc.getvalue()))
+
+    def update_index(self, md_file_links: []):
+        index = open(f'{self.meta.output}/index.html').read()
+        excerpts = index.find('<div class="excerpts__item">')
+
+        doc, tag, text = Doc().tagtext()
+
+        for md_file_link in md_file_links:
+            doc.asis(generate_link(md_file_link))
+
+        return index[:excerpts] + indent(doc.getvalue()) + index[excerpts:]
+
+
 
     def get_reading_time(self, content):
         i18n.load_path.append('./translations')

@@ -41,7 +41,9 @@ extras: # Documentation on https://github.com/trentm/python-markdown2/wiki/Extra
   - strike
   - spoiler
 
+md_path: './md_files'
+output: './www'
+
+# Don't modify those unless you know what you're doing !
 stylesheet: './assets/css/style.css'
 javascript: './assets/js/script.js'
-md_path: './md_files'
-html_path: './website'
