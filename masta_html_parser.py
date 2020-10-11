@@ -14,6 +14,7 @@ class MastaParse(HTMLParser):
     def handle_endtag(self, tag):
         self.end_tag_list.append(tag)
 
+    # Custom parser returns the missing html tag of the string
     def get_missing_closing_tag(self):
         missing_tag = [tag for tag in self.start_tag_list if tag not in self.end_tag_list]
 

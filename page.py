@@ -9,8 +9,8 @@ from yattag import Doc, indent
 from masta_html_parser import MastaParse
 from meta import Meta
 
-
-def generate_link(md_file_link: {}):
+# Generates a tile with an excerpt for the index and ecures the excerpt for possible missing closing tags.
+def generate_tile(md_file_link: {}):
     doc, tag, text = Doc().tagtext()
 
     excerpt = md_file_link['excerpt']
@@ -32,7 +32,7 @@ def generate_link(md_file_link: {}):
 
     return indent(doc.getvalue())
 
-
+# Replaces emoticons by their emoji aliases equivalent in string
 def emoticons_to_emoji(content):
     content = re.sub(":-\)", ":smile:", content)
     content = re.sub(":-\(", ":worried:", content)
@@ -49,7 +49,8 @@ class Page:
         self.cwd = cwd
         self.meta = meta
 
-    def generate(self):
+    # Generates a page structure with doctype, head etc.
+    def generate(self, page_title = ''):
         i18n.load_path.append('./translations')
         i18n.set('locale', self.meta.lang)
         i18n.set('fallback', 'en')
@@ -61,7 +62,10 @@ class Page:
 
         with tag('head'):
             with tag('title'):
-                text(self.meta.title)
+                if page_title == '':
+                    text(self.meta.title)
+                else:
+                    text(f'{page_title} - {self.meta.title}')
 
             doc.stag('meta', charset=f'{self.meta.charset}')
 
@@ -103,6 +107,7 @@ class Page:
 
         return indent(doc.getvalue())
 
+    # Adds the footer, script tags and closing tags to the generated html content
     def close_html(self, file_content):
         doc, tag, text = Doc().tagtext()
 
@@ -116,6 +121,8 @@ class Page:
 
         return file_content + indent(doc.getvalue()) + f'</body>{font_awesome + custom_js}</script></html>'
 
+    # Generates the html base and renders markdown content into an html article.
+    # return value doesn't use "indent" because it messes with code blocks
     def render_md(self, md_file_content, extras):
         f = self.generate()
 
@@ -134,8 +141,9 @@ class Page:
 
         return self.close_html(f + doc.getvalue())
 
+    # Generates the html base for the About page
     def generate_about(self):
-        f = self.generate()
+        f = self.generate(i18n.t('menu.about'))
 
         doc, tag, text = Doc().tagtext()
 
@@ -148,8 +156,9 @@ class Page:
 
         return self.close_html(f + indent(doc.getvalue()))
 
+    # Generates the html base for the Contact page
     def generate_contact(self):
-        f = self.generate()
+        f = self.generate(i18n.t('menu.contact'))
 
         i18n.load_path.append('./translations')
         i18n.set('locale', self.meta.lang)
@@ -182,6 +191,7 @@ class Page:
 
         return self.close_html(f + indent(doc.getvalue()))
 
+    # Generates index, and a tile for each article that has been previously rendered
     def generate_index(self, md_file_links: []):
         f = self.generate()
 
@@ -189,10 +199,11 @@ class Page:
 
         with tag('div', klass='excerpts'):
             for md_file_link in md_file_links:
-                doc.asis(generate_link(md_file_link))
+                doc.asis(generate_tile(md_file_link))
 
         return self.close_html(f + indent(doc.getvalue()))
 
+    # Updates the index by inserting a tile before the existing ones for each article that has been previously rendered
     def update_index(self, md_file_links: []):
         index = open(f'{self.meta.output}/index.html').read()
         excerpts = index.find('<div class="excerpts__item">')
@@ -200,12 +211,14 @@ class Page:
         doc, tag, text = Doc().tagtext()
 
         for md_file_link in md_file_links:
-            doc.asis(generate_link(md_file_link))
+            doc.asis(generate_tile(md_file_link))
 
         return index[:excerpts] + indent(doc.getvalue()) + index[excerpts:]
 
 
-
+    # Returns a string containing the estimated time to read the content passed as an argument.
+    # One can read about 200 words per minute so the maths are number of words divided by 200, times 60 to get seconds,
+    # rounded to superior value.
     def get_reading_time(self, content):
         i18n.load_path.append('./translations')
         i18n.set('locale', self.meta.lang)

@@ -1,5 +1,4 @@
 import os
-import sys
 import argparse
 import shortuuid
 import time
@@ -21,6 +20,7 @@ parser.add_argument("-i", "--interaction", action='store_false', help="skip user
 parser.add_argument("-u", "--update", action='store_true', help="update existing project with new articles")
 args = parser.parse_args()
 
+# prints arguments if verbose is True
 verbose_print = print if args.verbose else lambda *a, **k: None
 
 verbose_print(time.strftime('%Y_%m_%d-%H:%M:%S'))
@@ -32,6 +32,7 @@ cwd = os.getcwd()
 verbose_print(cwd)
 verbose_print('Reading config file...\n', '=======================================\n')
 
+# Extracts config from config.yaml, and creates extras, author and meta objects.
 with open("config.yaml", 'r') as yaml_file:
     try:
         config = yaml.safe_load(yaml_file)
@@ -65,13 +66,11 @@ meta = Meta(
     config['javascript'],
 )
 
+# Copies assets in the output directory, preserves styles and javascript in case this is an update
 if args.update is True:
     meta.copy_assets(True, True)
 else:
     meta.copy_assets()
-
-# sys.exit('stop')
-
 
 verbose_print(f'META: \n{meta.get_meta()}\n')
 verbose_print(f'EXTRAS:\n {extras}\n', '=======================================\n')
@@ -80,6 +79,10 @@ verbose_print(f'Hi, Mastasigen! is about to create {meta.title}...\n', '========
 md_files_links = []
 rendered_files_count = 0
 
+
+# Checks if file already exists. If not, creates a unique file name with shortuuid.
+# Then it extracts the first <h1> title, and a 350 characters excerpt of the document and stores them along with the html file name (required for index excerpt tiles creation/update)
+# It finally creates the html file.
 def save(content, file_name, md=False):
     if args.update is True:
         for o in os.listdir(meta.output):
@@ -114,6 +117,7 @@ def save(content, file_name, md=False):
     verbose_print(f'{file_name} successfully saved !\n')
 
 
+# Renders the md file content into html markup, and then calls the save function to write it in a file.
 def render(md_file):
     verbose_print(time.strftime('%Y_%m_%d-%H:%M:%S'))
     verbose_print(f'Rendering {md_file}')
@@ -128,6 +132,8 @@ def render(md_file):
 files = os.listdir(config['md_path'])
 rendering = [render(file) for file in files if file.endswith(".md")]
 
+# In case this is normal run, creates index, about and contact pages and calls the "save" function for each.
+# Otherwise, if md files have been rendered, it updates the excerpts tiles in the index.
 if args.update is False:
     index = Page(cwd, meta).generate_index(md_files_links)
     about = Page(cwd, meta).generate_about()

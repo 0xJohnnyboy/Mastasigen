@@ -25,6 +25,8 @@ class Meta:
                 self.long_description, self.lang, self.charset, self.theme, self.header_image, self.md_path,
                 self.output, self.stylesheet, self.javascript]
 
+    # Copies assets to the output directory.
+    # Creates the directories if they don't exist, then replaces the original paths by the output ones in meta
     def copy_assets(self, preserve_styles=False, preserve_js=False):
         assets_dir = f'{self.output}/assets'
         img_dir = f'{assets_dir}/img/'
