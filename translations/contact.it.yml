@@ -1,0 +1,4 @@
+it:
+  intro: "Non esitate a mi contattarmi"
+  phone: "Puoi chiamarmi a questo numero tra le %{opening_hour} e le %{closing_hour}"
+  mail: "Mandami una mail qui"
