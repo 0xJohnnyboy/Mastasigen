@@ -5,7 +5,7 @@
 # Mastastigen! needs the following to work properly
 
 title: 'Mastasigen!'
-lang: 'fr'
+lang: 'en'
 charset: 'utf-8'
 theme: 'system' # Default theme is system. Choices are 'system', 'light' and 'dark'
 
