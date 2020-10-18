@@ -1,7 +1,7 @@
 ###### Requirements: pip3 install -r requirements.txt ######`
-pyyaml
-markdown2
-yattag
+pyyaml~=5.3.1
+markdown2~=2.3.9
+yattag~=1.14.0
 python-i18n
-shortuuid
-emoji
+shortuuid~=1.0.1
+emoji~=0.6.0

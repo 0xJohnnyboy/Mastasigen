@@ -9,6 +9,8 @@ article {
 
   p {
     width: 100%;
+    word-break: break-word;
+    hyphens: auto;
   }
 
   .article__date {

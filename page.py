@@ -9,7 +9,8 @@ from yattag import Doc, indent
 from masta_html_parser import MastaParse
 from meta import Meta
 
-# Generates a tile with an excerpt for the index and ecures the excerpt for possible missing closing tags.
+
+# Generates a tile with an excerpt for the index and secures the excerpt for possible missing closing tags.
 def generate_tile(md_file_link: {}):
     doc, tag, text = Doc().tagtext()
 
@@ -32,6 +33,7 @@ def generate_tile(md_file_link: {}):
 
     return indent(doc.getvalue())
 
+
 # Replaces emoticons by their emoji aliases equivalent in string
 def emoticons_to_emoji(content):
     content = re.sub(":-\)", ":smile:", content)
@@ -50,7 +52,7 @@ class Page:
         self.meta = meta
 
     # Generates a page structure with doctype, head etc.
-    def generate(self, page_title = ''):
+    def generate(self, page_title=''):
         i18n.load_path.append('./translations')
         i18n.set('locale', self.meta.lang)
         i18n.set('fallback', 'en')
@@ -96,8 +98,18 @@ class Page:
                         doc.asis('<i class="menu__item__theme-toggle fas"></i>')
 
         with tag('header'):
-            self.meta.author.profile_picture is not '' and doc.stag('img', src=f"{self.meta.author.profile_picture}", klass="profile-pic")
-            self.meta.header_image is not '' and doc.stag('img', src=f"{self.meta.header_image}", klass="header-image")
+            self.meta.author.profile_picture != '' and doc.stag(
+                'img',
+                src=f"{self.meta.author.profile_picture}",
+                klass="profile-pic",
+                alt=f'{self.meta.author.name} profile picture'
+            )
+            self.meta.header_image != '' and doc.stag(
+                'img',
+                src=f"{self.meta.header_image}",
+                klass="header-image",
+                alt='header background'
+            )
 
             with tag('h1', klass='welcome'):
                 text(i18n.t(
@@ -214,7 +226,6 @@ class Page:
             doc.asis(generate_tile(md_file_link))
 
         return index[:excerpts] + indent(doc.getvalue()) + index[excerpts:]
-
 
     # Returns a string containing the estimated time to read the content passed as an argument.
     # One can read about 200 words per minute so the maths are number of words divided by 200, times 60 to get seconds,

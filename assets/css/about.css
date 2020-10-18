@@ -56,7 +56,8 @@
     flex-direction: column;
     justify-content: center;
     width: 70vw;
-    word-break: break-all;
+    word-break: break-word;
+    hyphens: auto;
   }
 }
 

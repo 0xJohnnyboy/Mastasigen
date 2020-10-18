@@ -1,21 +1,21 @@
-#                  Mastastigen!
+#                  Mastasigen!
 # ========================================
 #
-# This is the Mastastigen! config file.
-# Mastastigen! needs the following to work properly
+# This is the Mastasigen! config file.
+# Mastasigen! needs the following to work properly
 
 title: 'Mastasigen!'
-lang: 'fr'
+lang: 'en'
 charset: 'utf-8'
 theme: 'system' # Default theme is system. Choices are 'system', 'light' and 'dark'
 
 header_image: './assets/img/kian-lem.jpg'
 
-short_description: This is Mastastigen!, a Markdown Static Site Generator !
+short_description: This is Mastasigen!, a Markdown Static Site Generator !
 long_description: |
-  This is Mastastigen!. Mastastigen! lets you generate a static website with just one command from markdown files !
+  This is Mastasigen!. Mastasigen! lets you generate a static website with just one command from markdown files !
 
-  After you configure the projet in config.yaml, you can launch the script with the following command "python3 mastastigen.py".
+  After you configure the projet in config.yaml, you can launch the script with the following command "python3 mastasigen.py".
   Just add "--help" or "-h" to get help. You can increase verbosity too with "--verbose" or "-v".
 
   This script is designed to be running on a server: the goal is to automate it with a cron so it will update your website every time you add a new markdown file.

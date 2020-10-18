@@ -59,6 +59,5 @@ class Meta:
         js_final_path = js_dir + os.path.basename(self.javascript)
         preserve_js is False and shutil.copyfile(self.javascript, js_final_path)
 
-
         self.stylesheet = stylesheet_final_path.replace(self.output, '.')
         self.javascript = js_final_path.replace(self.output, '.')

@@ -55,6 +55,8 @@ article {
 }
 article p {
   width: 100%;
+  word-break: break-word;
+  hyphens: auto;
 }
 article .article__date {
   color: var(--backgroundPlain);
