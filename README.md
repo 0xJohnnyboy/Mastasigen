@@ -1,4 +1,12 @@
-# Mastasigen!
+```bash
+                __  ___           __             _                  __
+               /  |/  /___ ______/ /_____ ______(_)___ ____  ____  / /
+              / /|_/ / __ `/ ___/ __/ __ `/ ___/ / __ `/ _ \/ __ \/ /
+             / /  / / /_/ (__  ) /_/ /_/ (__  ) / /_/ /  __/ / / /_/
+            /_/  /_/\__,_/____/\__/\__,_/____/_/\__, /\___/_/ /_(_)
+                                               /____/
+
+```
 
 Mastasigen! is a markdown static blog generator. It lets you generate and update a blog from markdown articles.
 
@@ -7,12 +15,25 @@ Mastasigen! is a markdown static blog generator. It lets you generate and update
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install requirements.
 
 ```bash
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Usage
 
-Start with config.yaml, this file lets you fine tune your blog to generate !
+You have 2 solutions to configure your blog to build:
+- you can use CLI (Command Line Interface), in a simple or advanced mode.
+- you can use the ``config.yaml`` file.
+    
+Using the CLI, you just have to run the following command:
+ 
+```bash
+py mastasigen.py --verbose --interaction
+```
+
+After choosing the language, you will have to choose between ``simple`` and ``advanced`` modes.
+This is up to you ! The config helper will override ```config.yaml``` settings with the fields that you filled. 
+
+The ``config.yaml`` lets you fine tune your blog to generate !
 
 ```yaml
 title: 'Mastasigen!' Here is the title of your blog.
@@ -60,7 +81,7 @@ javascript: './assets/js/script.js'
 
 Once you're done with config.yaml, just put some markdown files to render and run the following command
 ```bash
-python3 mastasigen.py
+py mastasigen.py
 ```
 
 You can add `-v` or `--verbose` to make it verbose.
@@ -69,6 +90,9 @@ Next time, to update your blog, add the `-u` or `--update` argument. This will o
 
 ## Contributing
 Please see CONTRIBUTING.md
+
+## Thanks
+Photos are taken from [Unsplash](https://unsplash.com/), thanks to [Vicky Hladynets](https://unsplash.com/@vhladynets) and [Kian Lem](https://unsplash.com/@kianlem).
 ## Coffee
 [Buy me a coffee](http://paypal.me/sonicfuryFR) 
 ## License
