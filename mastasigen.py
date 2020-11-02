@@ -1,5 +1,7 @@
 import os
 import argparse
+import textwrap
+
 import shortuuid
 import time
 import re
@@ -13,18 +15,21 @@ from page import Page
 
 class Mastasigen:
     def __init__(self):
+        self.version = '1.2-beta'
         self.parser = argparse.ArgumentParser(
             prog='Mastasigen!',
             usage='static website generation',
-            description='Mastasigen! is a static site generator. It renders html static files from markdown'
-        )
+            formatter_class=argparse.RawDescriptionHelpFormatter,
+            description=textwrap.dedent(f'{Figlet(font="slant").renderText("Mastasigen!")}\n\n '
+                                        f'Mastasigen! is a static site generator. '
+                                        f'It renders html static files from markdown.\n '
+                                        f'v{self.version}'))
         self.parser.add_argument("-v", "--verbose", action='store_true', help="prints output")
         self.parser.add_argument("-V", "--version", action='store_true', help="prints version")
         self.parser.add_argument("-i", "--interaction", action='store_true', help="config helper")
         self.parser.add_argument("-u", "--update", action='store_true',
                                  help="update existing project with new articles")
         self.args = self.parser.parse_args()
-        self.version = '1.1'
 
         if self.args.version is True:
             print(f"v{self.version}")
@@ -118,11 +123,10 @@ class Mastasigen:
         else:
             self.verbose_print(f"[{time.strftime('%Y_%m_%d-%H:%M:%S')}] : Nothing to update")
 
-        # Checks if file already exists. If not, creates a unique file name with shortuuid.
-        # Then it extracts the first <h1> title, and a 350 characters excerpt of the
-        # document and stores them along with the html file name (required for index excerpt tiles creation/update)
-        # It finally creates the html file.
-
+    # Checks if file already exists. If not, creates a unique file name with shortuuid.
+    # Then it extracts the first <h1> title, and a 350 characters excerpt of the
+    # document and stores them along with the html file name (required for index excerpt tiles creation/update)
+    # It finally creates the html file.
     def save(self, content, file_name, md=False):
         if self.args.update is True:
             for o in os.listdir(self.meta.output):
