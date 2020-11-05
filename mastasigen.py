@@ -1,10 +1,13 @@
 import os
 import argparse
+import textwrap
+
 import shortuuid
 import time
 import re
 import yaml
-
+import sys
+from pyfiglet import Figlet
 from meta import Meta
 from author import Author
 from page import Page
@@ -12,33 +15,44 @@ from page import Page
 
 class Mastasigen:
     def __init__(self):
+        self.version = '1.2-beta'
         self.parser = argparse.ArgumentParser(
             prog='Mastasigen!',
             usage='static website generation',
-            description='Mastasigen! is a static site generator. It renders html static files from markdown'
-        )
+            formatter_class=argparse.RawDescriptionHelpFormatter,
+            description=textwrap.dedent(f'{Figlet(font="slant").renderText("Mastasigen!")}\n\n '
+                                        f'Mastasigen! is a static site generator. '
+                                        f'It renders html static files from markdown.\n '
+                                        f'v{self.version}'))
         self.parser.add_argument("-v", "--verbose", action='store_true', help="prints output")
-        self.parser.add_argument("-i", "--interaction", action='store_false', help="skip user interaction")
+        self.parser.add_argument("-V", "--version", action='store_true', help="prints version")
+        self.parser.add_argument("-i", "--interaction", action='store_true', help="config helper")
         self.parser.add_argument("-u", "--update", action='store_true',
                                  help="update existing project with new articles")
         self.args = self.parser.parse_args()
+
+        if self.args.version is True:
+            print(f"v{self.version}")
+            sys.exit()
+
         self.verbose_print = print if self.args.verbose else lambda *a, **k: None
 
-        self.verbose_print(time.strftime('%Y_%m_%d-%H:%M:%S'))
-        self.verbose_print('\n\nStarting Mastasigen!\n\n\n')
-        self.verbose_print('Getting current working directory...\n', '=======================================\n')
+        self.args.verbose and print(Figlet(font='slant').renderText('Mastasigen!'))
+        self.verbose_print(f"version: {self.version}")
+        self.verbose_print(f"[{time.strftime('%Y_%m_%d-%H:%M:%S')}] : Starting Mastasigen!")
+        self.verbose_print(f"[{time.strftime('%Y_%m_%d-%H:%M:%S')}] : Getting current working directory...")
 
         self.cwd = os.getcwd()
 
-        self.verbose_print(self.cwd)
-        self.verbose_print('Reading config file...\n', '=======================================\n')
+        self.verbose_print(f"[{time.strftime('%Y_%m_%d-%H:%M:%S')}] : current working directory: {self.cwd}")
+        self.verbose_print(f"[{time.strftime('%Y_%m_%d-%H:%M:%S')}] : Reading config file...")
 
         # Extracts config from config.yaml, and creates extras, author and meta objects.
         with open("config.yaml", 'r', encoding="utf-8") as yaml_file:
             try:
                 self.config = yaml.safe_load(yaml_file)
             except yaml.YAMLError as exc:
-                self.verbose_print(exc)
+                self.verbose_print(f"[{time.strftime('%Y_%m_%d-%H:%M:%S')}] {exc}")
 
         self.extras = self.config['extras']
 
@@ -67,16 +81,20 @@ class Mastasigen:
             self.config['javascript'],
         )
 
+        if self.args.interaction is True:
+            self.meta.config_helper()
+
         # Copies assets in the output directory, preserves styles and javascript in case this is an update
         if self.args.update is True:
             self.meta.copy_assets(True, True)
         else:
             self.meta.copy_assets()
 
-        self.verbose_print(f'META: \n{self.meta.get_meta()}\n')
-        self.verbose_print(f'EXTRAS:\n {self.extras}\n', '=======================================\n')
-        self.verbose_print(f'Hi, Mastasigen! is about to create {self.meta.title}...\n',
-                           '=======================================\n')
+        self.verbose_print(f"[{time.strftime('%Y_%m_%d-%H:%M:%S')}] : META: \n{self.meta.get_meta()}")
+        self.verbose_print(
+            f"[{time.strftime('%Y_%m_%d-%H:%M:%S')}] : EXTRAS:\n {self.extras}")
+        self.verbose_print(
+            f"[{time.strftime('%Y_%m_%d-%H:%M:%S')}] : Hi, Mastasigen! is about to create {self.meta.title}...")
 
         self.md_files_links = []
         self.rendered_files_count = 0
@@ -97,15 +115,13 @@ class Mastasigen:
                 {'name': 'contact', 'content': contact}
             ]:
                 self.save(f['content'], f['name'])
+
         elif self.rendered_files_count > 0:
-            self.verbose_print(time.strftime('%Y_%m_%d-%H:%M:%S'))
-            self.verbose_print('Updating index\n', '=======================================\n')
+            self.verbose_print(f"[{time.strftime('%Y_%m_%d-%H:%M:%S')}] : Updating index\n",)
             index = Page(self.cwd, self.meta).update_index(self.md_files_links)
             self.save(index, 'index')
         else:
-            self.verbose_print('=======================================\n')
-            self.verbose_print(time.strftime('%Y_%m_%d-%H:%M:%S'))
-            self.verbose_print('Nothing to update\n')
+            self.verbose_print(f"[{time.strftime('%Y_%m_%d-%H:%M:%S')}] : Nothing to update")
 
     # Checks if file already exists. If not, creates a unique file name with shortuuid.
     # Then it extracts the first <h1> title, and a 350 characters excerpt of the
@@ -115,12 +131,12 @@ class Mastasigen:
         if self.args.update is True:
             for o in os.listdir(self.meta.output):
                 if md is True and file_name in o:
-                    self.verbose_print(f'{file_name} already exists\n')
+                    self.verbose_print(f"[{time.strftime('%Y_%m_%d-%H:%M:%S')}] : {file_name} already exists")
 
                     return
 
         if md is True and content:
-            self.verbose_print(f'creating file {file_name}\n')
+            self.verbose_print(f"[{time.strftime('%Y_%m_%d-%H:%M:%S')}] : creating file {file_name}")
 
             html_file_name = f"{time.strftime('%Y%m%d-%H%M%S')}_{shortuuid.uuid()}_{file_name}.html"
             title = re.search("(<h1>.*<\/h1>)(([\w\W]{0,350})</article>|([\w\W]{0,350}))", content).group(1).replace(
@@ -133,7 +149,7 @@ class Mastasigen:
                 'link': f'./{html_file_name}'
             })
             self.rendered_files_count += 1
-            self.verbose_print(title, excerpt, html_file_name)
+            self.verbose_print(f"[{time.strftime('%Y_%m_%d-%H:%M:%S')}] : {title} {excerpt} {html_file_name}")
         else:
             html_file_name = f'{file_name}.html'
 
@@ -141,11 +157,10 @@ class Mastasigen:
         html_file.write(content)
         html_file.close()
 
-        self.verbose_print(f'{file_name} successfully saved !\n')
+        self.verbose_print(f"[{time.strftime('%Y_%m_%d-%H:%M:%S')}] {file_name} successfully saved !")
 
     def render(self, md_file):
-        self.verbose_print(time.strftime('%Y_%m_%d-%H:%M:%S'))
-        self.verbose_print(f'Rendering {md_file}')
+        self.verbose_print(f"[{time.strftime('%Y_%m_%d-%H:%M:%S')}] : Rendering {md_file}")
         file_name = md_file[:-3]
         md_file_content = open(f"{self.config['md_path']}/{md_file}", "r", encoding="utf-8").read()
 

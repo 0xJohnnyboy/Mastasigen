@@ -662,6 +662,9 @@ article {
   overflow: auto;
   background: var(--contrastBackground);
 }
+article code {
+  overflow-x: auto;
+}
 article p {
   width: 100%;
   word-break: break-word;
@@ -876,7 +879,7 @@ header .profile-pic {
 header .header-image {
   object-fit: cover;
   object-position: 50% 50%;
-  width: 100vw;
+  width: 100%;
   z-index: -1;
   position: absolute;
   top: 0;

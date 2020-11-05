@@ -53,6 +53,9 @@ article {
   overflow: auto;
   background: var(--contrastBackground);
 }
+article code {
+  overflow-x: auto;
+}
 article p {
   width: 100%;
   word-break: break-word;
