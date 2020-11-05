@@ -70,8 +70,8 @@ class Page:
                     text(f'{page_title} - {self.meta.title}')
 
             doc.stag('meta', charset=f'{self.meta.charset}')
+            doc.stag('meta', name='viewport', content='width=device-width, initial-scale=1.0')
 
-            # todo: handle theme
             doc.stag('link', rel="stylesheet", href=f"{self.meta.stylesheet}")
 
         doc.asis('<body>')
