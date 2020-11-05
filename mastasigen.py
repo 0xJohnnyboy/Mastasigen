@@ -15,7 +15,7 @@ from page import Page
 
 class Mastasigen:
     def __init__(self):
-        self.version = '1.2-beta'
+        self.version = '1.2'
         self.parser = argparse.ArgumentParser(
             prog='Mastasigen!',
             usage='static website generation',
