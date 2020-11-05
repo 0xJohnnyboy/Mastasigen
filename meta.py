@@ -1,11 +1,10 @@
 from __future__ import print_function, unicode_literals
 
 import os
-import re
 import shutil
 
 import i18n
-from PyInquirer import prompt, print_json
+from PyInquirer import prompt
 from prompt_toolkit.validation import Validator, ValidationError
 
 from author import Author
@@ -127,42 +126,22 @@ class Meta:
                 'default': True
             },
             {
-                'type': 'expand',
+                'type': 'list',
                 'name': 'site_lang',
                 'message': i18n.t("config.site_lang"),
                 'choices': [
-                    {
-                        'key': 'en',
-                        'name': 'English',
-                        'value': 'en'
-                    },
-                    {
-                        'key': 'fr',
-                        'name': 'Français',
-                        'value': 'fr'
-                    },
-                    {
-                        'key': 'de',
-                        'name': 'Deutsch',
-                        'value': 'de'
-                    },
-                    {
-                        'key': 'it',
-                        'name': 'Italiano',
-                        'value': 'it'
-                    },
-                    {
-                        'key': 'es',
-                        'name': 'Español',
-                        'value': 'es'
-                    },
+                    'English',
+                    'Français',
+                    'Deutsch',
+                    'Italiano',
+                    'Español'
                 ],
                 'when': lambda answers: answers['site_lang_confirm'] is False
             },
             {
                 'type': 'confirm',
                 'name': 'site_charset_confirm',
-                'message': i18n.t("config.site_charset_confirm") + i18n.t("config.not_recommended"),
+                'message': i18n.t("config.site_charset_confirm") + i18n.t("config.recommended"),
                 'default': True,
                 'when': lambda answers: answers['mode'] == 'advanced'
             },
@@ -175,7 +154,7 @@ class Meta:
             {
                 'type': 'confirm',
                 'name': 'site_theme_confirm',
-                'message': i18n.t("config.site_theme_confirm") + i18n.t("config.not_recommended"),
+                'message': i18n.t("config.site_theme_confirm") + i18n.t("config.recommended"),
                 'default': True,
                 'when': lambda answers: answers['mode'] == 'advanced'
             },
@@ -196,6 +175,7 @@ class Meta:
                 'type': 'input',
                 'name': 'site_source',
                 'message': i18n.t("config.site_source"),
+                'default': self.md_path,
                 'validate': DirPathValidator,
                 'when': lambda answers: answers['mode'] == 'advanced'
             },
@@ -203,10 +183,11 @@ class Meta:
                 'type': 'input',
                 'name': 'site_output',
                 'message': i18n.t("config.site_output"),
+                'default': self.output,
                 'when': lambda answers: answers['mode'] == 'advanced'
             },
             {
-                'type': 'input',
+                'type': 'confirm',
                 'name': 'site_styles_confirm',
                 'message': i18n.t("config.site_styles_confirm") + i18n.t("config.recommended"),
                 'default': True,
@@ -220,7 +201,7 @@ class Meta:
                 'when': lambda answers: answers['mode'] == 'advanced' and answers['site_styles_confirm'] is False
             },
             {
-                'type': 'input',
+                'type': 'confirm',
                 'name': 'site_js_confirm',
                 'message': i18n.t("config.site_js_confirm") + i18n.t("config.recommended"),
                 'default': True,
@@ -276,7 +257,7 @@ class Meta:
         self.title = answers['site_title']
         self.short_description = answers['site_short']
         self.long_description = answers['site_long']
-        self.lang = language if answers['site_lang_confirm'] is True else answers['site_lang']
+        self.lang = language if answers['site_lang_confirm'] is True else answers['site_lang'][:2].lower()
         self.header_image = answers['site_header']
         self.author = Author(
             answers['author_name'],
