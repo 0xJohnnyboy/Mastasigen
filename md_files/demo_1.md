@@ -1,75 +1,50 @@
-# My first article
+# Mastasigen!, WTF is this ?
 
-Lorem *ipsum* dolor sit amet,consectetur adipiscing elit. **Donec egestas ut quam id sagittis**. In eu imperdiet enim. Morbi vestibulum velit vel hendrerit pellentesque. Duis mollis diam libero, non scelerisque dolor porttitor eget. Vestibulum mauris quam, venenatis quis est vel, ultrices auctor ante. Maecenas porta turpis laoreet metus dapibus fermentum.[Nunc nec pretium nisi](http://google.com)Ut tempoar dui nec lorem dictum interdum sed ut orci.
+![Hey](https://media.giphy.com/media/xT9IgG50Fb7Mi0prBC/giphy.gif)
 
-## Here is section 1
+Hiii, welcome on Mastasigen demo ! :)
 
-Lorem *ipsum* dolor sit amet,consectetur adipiscing elit. **Donec egestas ut quam id sagittis**. In eu imperdiet enim. Morbi vestibulum velit vel hendrerit pellentesque. Duis mollis diam libero, non scelerisque dolor porttitor eget. Vestibulum mauris quam, venenatis quis est vel, ultrices auctor.
+## A static site generator
 
-## Here is section 2
+Indeed, Mastasigen! is a simple **static site generator**, it renders **markdown** files to serve you a neat design static site.
+You can sneak a peek at the render in the second "article" which is actually a test file, shamelessly stolen from github.
 
-![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
+![what](https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif)
+> Ok but, what does it provide ?
 
-## Blockquotes
-
-
-> Blockquotes can also be nested...
->> ...by using additional greater-than signs right next to each other...
-> > > ...or with spaces between arrows.
-
-
-## Lists
-
-Unordered
-
-+ Create a list by starting a line with `+`, `-`, or `*`
-+ Sub-lists are made by indenting 2 spaces:
-  - Marker character change forces new list start:
-    * Ac tristique libero volutpat at
-    + Facilisis in pretium nisl aliquet
-    - Nulla volutpat aliquam velit
-+ Very easy!
-
-Ordered
-
-1. Lorem ipsum dolor sit amet
-2. Consectetur adipiscing elit
-3. Integer molestie lorem at massa
+Actually, nothing really fancy. It supports almost everything GFM flavor offers, and renders *3 main pages* (Home, About and Contact).
+The generator supports i18n for 5 languages at the moment.You should feel free to contribute to the project as it is open source, 
+but especially on the translations even if you are no python dev ninja.
 
 
-1. You can use sequential numbers...
-1. ...or keep all the numbers as `1.`
+The projects strengths may be its simplicity.
 
-Start numbering with offset:
+> Ok but, how does it work ?
 
-57. foo
-1. bar
+![explain](https://media.giphy.com/media/5wWf7H89PisM6An8UAU/giphy.gif)
 
+As it works in CLI, you can just automate the update with a cron on your server. 
 
-## Code
-
-Inline `code`
-
-Indented code
-
-    // Some comments
-    line 1 of code
-    line 2 of code
-    line 3 of code
-
-
-Block code "fences"
-
+At the creation of a site you have to edit the configuration. 
+This can be done by editing the `config.yaml` file or by using the *Config Helper*, which is i18n too (English and French).
+```bash
+vim config.yaml
 ```
-Sample text here...
+or
+```bash
+py mastasigen.py -v -i
 ```
 
-Syntax highlighting
+![cool](https://media.giphy.com/media/2HONNTJbRhzKE/giphy.gif)
 
-``` js
-var foo = function (bar) {
-  return bar++;
-};
+> Is that it ?
 
-console.log(foo(5));
-```
+The project is evolving and new features are yet to come. Such as file deletion, in-article update, search-form etc etc.
+
+Once again, feel free to contribute. This is my first python project and I'm not really familiar with it yet. 
+Any help is welcome as long as respects conventions in `CONTRIBUTING.md`.
+
+Thank you for reading me. 
+If you want to give me money for whatever reason, please click [this link](http://paypal.me/sonicfuryFR)
+
+![drop the mic](https://media.giphy.com/media/UTYz3M8lcTvqaVbSo9/giphy.gif)

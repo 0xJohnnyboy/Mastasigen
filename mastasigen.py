@@ -29,6 +29,7 @@ class Mastasigen:
         self.parser.add_argument("-i", "--interaction", action='store_true', help="config helper")
         self.parser.add_argument("-u", "--update", action='store_true',
                                  help="update existing project with new articles")
+        self.parser.add_argument("-d", "--delete", action='store_true', help="delete article")
         self.args = self.parser.parse_args()
 
         if self.args.version is True:
