@@ -217,7 +217,7 @@ class Page:
 
     # Updates the index by inserting a tile before the existing ones for each article that has been previously rendered
     def update_index(self, md_file_links: []):
-        index = open(f'{self.meta.output}/index.html', "w", encoding="utf-8").read()
+        index = open(f'{self.meta.output}/index.html', "r", encoding="utf-8").read()
         excerpts = index.find('<div class="excerpts__item">')
 
         doc, tag, text = Doc().tagtext()
