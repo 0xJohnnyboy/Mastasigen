@@ -125,7 +125,7 @@ class Page:
 
         with tag('footer', klass='footer'):
             text('Powered by ')
-            with tag('a', href='https://github.com/Sonicfury/Mastasigen'):
+            with tag('a', href='https://github.com/0xJohnnyboy/Mastasigen'):
                 text('Mastasigen!')
 
         font_awesome = '<script src="https://kit.fontawesome.com/51fc2db30d.js" crossorigin="anonymous"></script>'

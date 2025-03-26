@@ -19,13 +19,13 @@ long_description: |
 
   Please note that this is a school project, It's my first python project and may or may not contain mistakes and design flaws. Be nice. Bye.
 author:
-  name: 'Sonicfury'
+  name: '0xJohnnyboy'
   mail: 'theo.lambert@viacesi.fr'
   phone: '+33644273556' # Don't forget international prefix
-  github: 'https://github.com/Sonicfury'
+  github: 'https://github.com/0xJohnnyboy'
   available_from: '9 AM'
   available_until: '7 PM'
-  profile_picture: 'C:\Users\Utilisateur\Pictures\Photo3-small-nb.png'
+  profile_picture: 'C:\Users\Utilisateur\Pictures\face.png'
 
 extras: # Documentation on https://github.com/trentm/python-markdown2/wiki/Extras
   - code-friendly

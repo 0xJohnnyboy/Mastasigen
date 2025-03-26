@@ -53,7 +53,7 @@ author: These info will help generate the content and are required for the gener
   name: 'John Doe' That's your name that will be displayed on the blog.
   mail: 'johndoe@mail.com'
   phone: '+33611223344' Don't forget international prefix
-  github: 'https://github.com/Sonicfury'
+  github: 'https://github.com/0xJohnnyboy'
   available_from: '9 AM' Hours your are available for calling ! 
   available_until: '7 PM'
   profile_picture: './assets/img/vicky-hladynets.jpg' Same as header image !
